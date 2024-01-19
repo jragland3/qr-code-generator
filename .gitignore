@@ -1,0 +1,8 @@
+# Generated files #
+###################
+*.txt
+*.png
+
+# Packages #
+############
+node_modules*
