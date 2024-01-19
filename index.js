@@ -7,24 +7,21 @@ import inquirer from 'inquirer';
 import qr from 'qr-image';
 import * as fs from 'node:fs';
 
-const questions = [
-  {
-    type: 'input',
-    name: 'url',
-    message: 'Please submit a URL to generate a QR code'
-  }
-];
-
 inquirer
-  .prompt(
+  .prompt([
     /* Pass your questions in here */
-    questions
-  )
-  .then((answers) => {
+    {
+      type: 'input',
+      name: 'URL',
+      message: 'Please submit a URL to generate a QR code'
+    }
+])
+  .then((answer) => {
   // Use user feedback for... whatever!!
-    let qr_png = qr.image(answers.url, { type: 'png' });
+    let url = answer.URL;
+    let qr_png = qr.image(url);
     qr_png.pipe(fs.createWriteStream('url_qr.png'));
-    fs.writeFile('INPUT.txt', answers.url, (err) => {
+    fs.writeFile('INPUT.txt', url, (err) => {
       if (err) throw err;
       console.log('File saved!');
     });
